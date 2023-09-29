@@ -21,28 +21,25 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: const Text('Weather App'),
         actions: [
-          IconButton(onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context){
-                  return SearchView();
-                }));
-          }, icon: Icon(Icons.search))
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return const SearchView();
+              }));
+            },
+            icon: const Icon(Icons.search),
+          )
         ],
       ),
-      body:BlocBuilder<GetWeatherCubit,WeatherState>(
-        builder: (context,state){
-
-          if(state is WeatherInitialState){
-            return NoWeatherBody();
-          }else if(state is WeatherLoadedState){
-            return WeatherInfoBody(
-              weather: state.weatherModel,
-            );
-          }else{
-            return Text('there was an error');
+      body: BlocBuilder<GetWeatherCubit, WeatherState>(
+        builder: (context, state) {
+          if (state is WeatherInitialState) {
+            return const NoWeatherBody();
+          } else if (state is WeatherLoadedState) {
+            return WeatherInfoBody(weather: state.weatherModel);
+          } else {
+            return const Center(child: Text('There was an error'));
           }
-
-
         },
       ),
     );
